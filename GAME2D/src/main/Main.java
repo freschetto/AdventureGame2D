@@ -11,7 +11,7 @@ public class Main {
 		JFrame window = new JFrame(); // create a new window
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // terminate the program when close window
 		window.setResizable(false);
-		window.setTitle("2D Adventure");
+		window.setTitle("2D GAME");
 		
 		// CREATE AND ADD GAME PANEL
 		GamePanel panel = new GamePanel();
@@ -22,6 +22,9 @@ public class Main {
 		// ADD WINDOW
 		window.setLocationRelativeTo(null); // set the location of the window at the center of the screen
 		window.setVisible(true);
+		
+		// START THREAD
+		panel.startGameThread();
 	}
 
 }
