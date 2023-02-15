@@ -8,10 +8,13 @@ import java.awt.Graphics2D;
 
 import javax.swing.JPanel;
 
+import entity.Player;
+
+@SuppressWarnings("serial")
 public class GamePanel extends JPanel implements Runnable {
 	
 	// SCREEN SETTINGS
-	final int tileSize = 64; // 64x64 tile
+	public final int tileSize = 64; // 64x64 tile
 	final int maxScreenCol = 16; // how many tiles can be displayed on screen horizontally
 	final int maxScreenRow = 12; // how many tiles can be displayed on screen vertically
 	
@@ -19,6 +22,7 @@ public class GamePanel extends JPanel implements Runnable {
 	private Thread gameThread;
 	private final int FPS = 60;
 	private KeyHandler keyH = new KeyHandler();
+	private Player player = new Player(this, keyH);
 	
 	// CONSTRUCTOR
 	public GamePanel() {
@@ -68,21 +72,8 @@ public class GamePanel extends JPanel implements Runnable {
 	// UPDATE METHOD
 	public void update() {
 		
-		if(keyH.upPressed) {
-			playerY -= playerSpeed;
-		}
+		player.update(); // update player's coordinates and its image
 		
-		if(keyH.downPressed) {
-			playerY += playerSpeed;
-		}
-		
-		if(keyH.leftPressed) {
-			playerX -= playerSpeed;
-		}
-		
-		if(keyH.rightPressed) {
-			playerX += playerSpeed;
-		}
 	}
 	
 	// DRAW METHOD
@@ -91,14 +82,9 @@ public class GamePanel extends JPanel implements Runnable {
 		super.paintComponent(graphics); // is a standard for superclass JPanel
 		Graphics2D g = (Graphics2D) graphics; // Graphics2D is better for this type of program
 		
-		g.setColor(Color.WHITE);
-		
-		g.fillRect(playerX, playerY, tileSize, tileSize);
+		player.draw(g); // draw player's image
 		
 		g.dispose();
 	}
 	
-	int playerX = 100;
-	int playerY = 100;
-	int playerSpeed = 4;
 }
