@@ -24,8 +24,12 @@ public class GamePanel extends JPanel implements Runnable {
 	private final int FPS = 60;
 	private KeyHandler keyH = new KeyHandler();
 	
+	// WORLD SETTINGS
+	private final int maxWorldCol = 50; // how many tiles can be draw on the map horizontally
+	private final int maxWorldRow = 50; // how many tiles can be draw on the map vertically
+	
 	// ELEMENTS
-	private Player player = new Player(this);
+	public Player player = new Player(this);
 	private TileManager background = new TileManager(this);;
 	
 	// CONSTRUCTOR
@@ -44,6 +48,10 @@ public class GamePanel extends JPanel implements Runnable {
 	public int getMaxScreenCol() {return maxScreenCol;}
 
 	public int getMaxScreenRow() {return maxScreenRow;}
+
+	public int getMaxWorldCol() {return maxWorldCol;}
+
+	public int getMaxWorldRow() {return maxWorldRow;}
 
 	// METHOD START THREAD
 	public void startGameThread() {

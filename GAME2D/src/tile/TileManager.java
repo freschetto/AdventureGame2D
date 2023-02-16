@@ -18,11 +18,11 @@ public class TileManager {
 	public TileManager(GamePanel panel) {
 		
 		this.panel = panel;
-		this.file = new FileReader(panel, "test01");
+		this.file = new FileReader(panel, "world01");
 		
 		// SETTINGS TILES
 		this.tiles = new Tile[10]; // how many different types of tile its can loads
-		this.mapTileType = new int[panel.getMaxScreenCol()][panel.getMaxScreenRow()]; // set maximum of the load map (empty)
+		this.mapTileType = new int[panel.getMaxWorldCol()][panel.getMaxWorldRow()]; // set maximum of the load map (empty)
 		this.mapTileType = file.loadMap();
 		
 		getTileImage(); // load image of all types of tile
@@ -57,14 +57,37 @@ public class TileManager {
 	// DRAW METHOD
 	public void draw(Graphics2D g) {
 		
-		int col = 0; int row = 0;
+		int worldCol = 0; int worldRow = 0;
 		
-		while(row < panel.getMaxScreenRow()) {
+		while(worldRow < panel.getMaxWorldRow()) {
 			
-			g.drawImage(tiles[mapTileType[col][row]].image, col*panel.tileSize, row*panel.tileSize, panel.tileSize, panel.tileSize, null); col++;
+			// MAP LOCATION
+			int worldX = worldCol * panel.tileSize; int worldY = worldRow * panel.tileSize; //coordinates of the objects in the map
+			int screenX = worldX - panel.player.worldX + panel.player.screenX; // where on the screen the objects will be draw based on player,s position
+			int screenY = worldY - panel.player.worldY + panel.player.screenY; // where on the screen the objects will be draw based on player,s position
 			
-			if(col == panel.getMaxScreenCol()) {row++; col = 0;}
+			// RENDERING PERFORMANCE: draw only in limited area
+			if(rendering(worldX, worldY)) {
+				
+				// DRAW BACKGROUND MAP
+				g.drawImage(tiles[mapTileType[worldCol][worldRow]].image, screenX, screenY, panel.tileSize, panel.tileSize, null);
+			}
+			
+			worldCol++; // change x position
+			
+			if(worldCol == panel.getMaxWorldCol()) {worldRow++; worldCol = 0;}
 		}
+	}
+	
+	// RENDERING METHOD
+	public boolean rendering(int worldX, int worldY) {
 		
+		if(worldX + panel.tileSize > panel.player.worldX - panel.player.screenX &&
+		   worldX - panel.tileSize < panel.player.worldX + panel.player.screenX &&
+		   worldY + panel.tileSize > panel.player.worldY - panel.player.screenY &&
+		   worldY - panel.tileSize < panel.player.worldY + panel.player.screenY) {
+			return true;
+		}
+		return false;
 	}
 }

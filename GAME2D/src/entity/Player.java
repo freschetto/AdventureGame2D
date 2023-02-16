@@ -16,15 +16,20 @@ public class Player extends Entity {
 	// CONSTRUCTOR
 	public Player(GamePanel panel) {
 		
-		setDefaultValues(); getPlayerImage();
 		this.panel = panel;
+		setDefaultValues(); getPlayerImage();
 	}
 	
 	// PLAYER SETTINGS
 	private void setDefaultValues() {
 		
-		this.worldX = 100;
-		this.worldY = 100;
+		// SCREEN SETTINGS
+		this.screenX =  panel.tileSize * (panel.getMaxScreenCol()/2) - (panel.tileSize/2); // in the middle of the screen (screenWidth - tile size/2)
+		this.screenY = panel.tileSize * (panel.getMaxScreenRow()/2) - (panel.tileSize/2); // in the middle of the screen (screenHeight - tile size/2)
+		
+		// WORLD SETTINGS
+		this.worldX = panel.tileSize*23; // where player starts in the world (map) horizontally
+		this.worldY = panel.tileSize*21; // where player starts in the world (map) vertically
 	}
 	
 	// PLAYER IMAGES
@@ -96,7 +101,7 @@ public class Player extends Entity {
 	// DRAW METHOD
 	public void draw(Graphics2D g) {		
 		
-		g.drawImage(getImageDirection(), worldX, worldY, panel.tileSize, panel.tileSize, null);
+		g.drawImage(getImageDirection(), screenX, screenY, panel.tileSize, panel.tileSize, null);
 	}
 	
 	// METHOD THAT RETURN IMAGE BY PLAYER'S DIRECTION

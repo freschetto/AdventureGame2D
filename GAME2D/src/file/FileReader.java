@@ -23,23 +23,23 @@ public class FileReader {
     	
     	try {
     		// VARIABILES
-    		int mapTileType[][] = new int[panel.getMaxScreenCol()][panel.getMaxScreenRow()]; // add the type of the tile in this matrix
+    		int mapTileType[][] = new int[panel.getMaxWorldCol()][panel.getMaxWorldRow()]; // add the type of the tile in this matrix
         	int col = 0; int row = 0;
         	
         	// READ MAP
-        	while(row < panel.getMaxScreenRow()) {
+        	while(row < panel.getMaxWorldRow()) {
     			
         		// CREATE VARIABILES FOR READ FILE
         		String line = reader.readLine(); // read one line (row) of the map
         		String numbers[] = line.split(" "); // don't considerate space between numbers and add all numbers in an array
         		
         		// READ MAP ROW
-        		while(col < panel.getMaxScreenCol()) {
+        		while(col < panel.getMaxWorldCol()) {
 
         			mapTileType[col][row] = Integer.parseInt(numbers[col]); col++; // add all the numbers of the row to the matrix
         		}
         		
-    			if(col == panel.getMaxScreenCol()) {row++; col = 0;} // increase rows for the next cycle and reset columns
+    			if(col == panel.getMaxWorldCol()) {row++; col = 0;} // increase rows for the next cycle and reset columns
     		}
         	
         	reader.close(); // close the file reader
