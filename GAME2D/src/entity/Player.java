@@ -1,7 +1,7 @@
 
 package entity;
 
-import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
@@ -11,25 +11,24 @@ import main.*;
 
 public class Player extends Entity {
 	
-	GamePanel panel; KeyHandler keyH;
+	private GamePanel panel;
 	
 	// CONSTRUCTOR
-	public Player(GamePanel panel, KeyHandler keyH) {
+	public Player(GamePanel panel) {
 		
 		setDefaultValues(); getPlayerImage();
 		this.panel = panel;
-		this.keyH = keyH;
 	}
 	
 	// PLAYER SETTINGS
-	public void setDefaultValues() {
+	private void setDefaultValues() {
 		
 		this.worldX = 100;
 		this.worldY = 100;
 	}
 	
 	// PLAYER IMAGES
-	public void getPlayerImage() {
+	private void getPlayerImage() {
 		
 		try {
 			
@@ -63,36 +62,41 @@ public class Player extends Entity {
 	// UPDATE METHOD
 	public void update() {
 		
-		// UP
-		if(keyH.upPressed) {
-			this.direction = "up";
-			this.worldY -= this.speed;
-		}
-		
-		// DOWN
-		if(keyH.downPressed) {
-			this.direction = "down";
-			this.worldY += this.speed;
-		}
-		
-		// LEFT
-		if(keyH.leftPressed) {
-			this.direction = "left";
-			this.worldX -= this.speed;
-		}
-		
-		// RIGHT
-		if(keyH.rightPressed) {
-			this.direction = "right";
-			this.worldX += this.speed;
+		if(panel.getKeyH().action) {
+			
+			// UP
+			if(panel.getKeyH().upPressed) {
+				this.direction = "up";
+				this.worldY -= this.speed;
+			}
+			
+			// DOWN
+			if(panel.getKeyH().downPressed) {
+				this.direction = "down";
+				this.worldY += this.speed;
+			}
+			
+			// LEFT
+			if(panel.getKeyH().leftPressed) {
+				this.direction = "left";
+				this.worldX -= this.speed;
+			}
+			
+			// RIGHT
+			if(panel.getKeyH().rightPressed) {
+				this.direction = "right";
+				this.worldX += this.speed;
+			}
+			
+			// FRAME IMAGE
+			changeFrame();
 		}
 	}
 	
 	// DRAW METHOD
-	public void draw(Graphics g) {		
+	public void draw(Graphics2D g) {		
 		
 		g.drawImage(getImageDirection(), worldX, worldY, panel.tileSize, panel.tileSize, null);
-
 	}
 	
 	// METHOD THAT RETURN IMAGE BY PLAYER'S DIRECTION
@@ -125,15 +129,19 @@ public class Player extends Entity {
 			default: image = this.down[0];
 		}
 		
+		return image;
+	}
+	
+	// METHOD THAT CHANGHE IMAGE FRAME
+	public void changeFrame() {
+		
 		this.frameCounter++; // change frame every 10 times
 		
-		if(this.frameCounter > 10) {
+		if(this.frameCounter > 16) {
 			
-				this.frame++; // change the number of the frame
+			this.frame++; // change the number of the frame
 				
-				this.frameCounter = 0; // reset the counter
-			}
-		
-		return image;
+			this.frameCounter = 0; // reset the counter
+		}
 	}
 }

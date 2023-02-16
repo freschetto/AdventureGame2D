@@ -9,20 +9,24 @@ import java.awt.Graphics2D;
 import javax.swing.JPanel;
 
 import entity.Player;
+import tile.TileManager;
 
 @SuppressWarnings("serial")
 public class GamePanel extends JPanel implements Runnable {
 	
 	// SCREEN SETTINGS
 	public final int tileSize = 64; // 64x64 tile
-	final int maxScreenCol = 16; // how many tiles can be displayed on screen horizontally
-	final int maxScreenRow = 12; // how many tiles can be displayed on screen vertically
+	private final int maxScreenCol = 16; // how many tiles can be displayed on screen horizontally
+	private final int maxScreenRow = 12; // how many tiles can be displayed on screen vertically
 	
 	// VARIABLE FOR CYCLE UPDATING AND DRAWING
 	private Thread gameThread;
 	private final int FPS = 60;
 	private KeyHandler keyH = new KeyHandler();
-	private Player player = new Player(this, keyH);
+	
+	// ELEMENTS
+	private Player player = new Player(this);
+	private TileManager background = new TileManager(this);;
 	
 	// CONSTRUCTOR
 	public GamePanel() {
@@ -34,6 +38,13 @@ public class GamePanel extends JPanel implements Runnable {
 		this.setFocusable(true); // with this, panel can be focused to receive key input
 	}
 	
+	// GETTER
+	public KeyHandler getKeyH() {return keyH;}
+	
+	public int getMaxScreenCol() {return maxScreenCol;}
+
+	public int getMaxScreenRow() {return maxScreenRow;}
+
 	// METHOD START THREAD
 	public void startGameThread() {
 		
@@ -71,7 +82,7 @@ public class GamePanel extends JPanel implements Runnable {
 	
 	// UPDATE METHOD
 	public void update() {
-		
+
 		player.update(); // update player's coordinates and its image
 		
 	}
@@ -82,9 +93,10 @@ public class GamePanel extends JPanel implements Runnable {
 		super.paintComponent(graphics); // is a standard for superclass JPanel
 		Graphics2D g = (Graphics2D) graphics; // Graphics2D is better for this type of program
 		
+		background.draw(g);
+		
 		player.draw(g); // draw player's image
 		
 		g.dispose();
 	}
-	
 }

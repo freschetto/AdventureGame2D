@@ -10,14 +10,16 @@ public class Entity {
 	
 	public BufferedImage[] up, down, left, right; // create an array for every frame of the action
 	public String direction = "front"; // this string determinate the image of its
-	public int frame = 0; public int frameCounter = 0;
+	public int frame = 0; public int frameCounter = 0; // variable that determinate which frame draw and how fast change frame
 	
+	// CONSTRUCTOR
 	public Entity() {
 		
 		setDimensionFrames();
 	}
 	
-	public void setDimensionFrames() {
+	// SET STANDARD DIMENSION OF ACTION FRAME
+	private void setDimensionFrames() {
 		
 		// UP
 		up = new BufferedImage[3];
