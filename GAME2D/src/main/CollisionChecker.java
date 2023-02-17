@@ -64,7 +64,7 @@ public class CollisionChecker {
 			// RIGHT
 			case "right":
 				
-				rectLeftCol = (entity.solidArea.x + entity.worldX + entity.speed)/panel.tileSize;
+				rectRightCol = (entity.solidArea.x + entity.worldX + entity.solidArea.width + entity.speed)/panel.tileSize;
 				if(panel.background.getTiles(panel.background.getMapTileType(rectRightCol, rectTopRow)).collision || panel.background.getTiles(panel.background.getMapTileType(rectRightCol, rectBottomRow)).collision) 
 					// if the entity touches physics tile
 					{entity.collision = true;}

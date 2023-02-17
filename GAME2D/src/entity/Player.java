@@ -101,7 +101,7 @@ public class Player extends Entity {
 	public void draw(Graphics2D g) {		
 		
 		g.drawImage(this.getImageDirection(), screenX, screenY, panel.tileSize, panel.tileSize, null);
-		//g.fillRect(screenX+solidArea.x, screenY+solidArea.y, solidArea.width, solidArea.height);
+		// g.fillRect(screenX+solidArea.x, screenY+solidArea.y, solidArea.width, solidArea.height);
 	}
 	
 	// METHOD THAT CHANGHE IMAGE FRAME
