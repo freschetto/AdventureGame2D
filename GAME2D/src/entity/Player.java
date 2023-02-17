@@ -2,21 +2,17 @@
 package entity;
 
 import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
+import java.awt.Rectangle;
 import java.io.IOException;
-
 import javax.imageio.ImageIO;
-
 import main.*;
 
 public class Player extends Entity {
-	
-	private GamePanel panel;
-	
+		
 	// CONSTRUCTOR
 	public Player(GamePanel panel) {
 		
-		this.panel = panel;
+		super(panel);
 		setDefaultValues(); getPlayerImage();
 	}
 	
@@ -30,6 +26,7 @@ public class Player extends Entity {
 		// WORLD SETTINGS
 		this.worldX = panel.tileSize*23; // where player starts in the world (map) horizontally
 		this.worldY = panel.tileSize*21; // where player starts in the world (map) vertically
+		this.solidArea = new Rectangle(panel.tileSize/4, panel.tileSize/2, panel.tileSize/2, panel.tileSize/2);
 	}
 	
 	// PLAYER IMAGES
@@ -72,25 +69,27 @@ public class Player extends Entity {
 			// UP
 			if(panel.getKeyH().upPressed) {
 				this.direction = "up";
-				this.worldY -= this.speed;
 			}
 			
 			// DOWN
-			if(panel.getKeyH().downPressed) {
+			else if(panel.getKeyH().downPressed) {
 				this.direction = "down";
-				this.worldY += this.speed;
 			}
 			
 			// LEFT
-			if(panel.getKeyH().leftPressed) {
+			else if(panel.getKeyH().leftPressed) {
 				this.direction = "left";
-				this.worldX -= this.speed;
 			}
 			
 			// RIGHT
-			if(panel.getKeyH().rightPressed) {
+			else if(panel.getKeyH().rightPressed) {
 				this.direction = "right";
-				this.worldX += this.speed;
+			}
+			
+			// COLLISION
+			panel.getCollisionChecker().checkTile(this);;
+			if(!this.collision) {
+				this.changePosition();
 			}
 			
 			// FRAME IMAGE
@@ -101,40 +100,8 @@ public class Player extends Entity {
 	// DRAW METHOD
 	public void draw(Graphics2D g) {		
 		
-		g.drawImage(getImageDirection(), screenX, screenY, panel.tileSize, panel.tileSize, null);
-	}
-	
-	// METHOD THAT RETURN IMAGE BY PLAYER'S DIRECTION
-	public BufferedImage getImageDirection() {
-		
-		BufferedImage image = null;
-		
-		switch (this.direction) {
-			
-			case "up":
-				if(this.frame >= up.length) {this.frame = 0;} // every times change frame, if reaches max its reset
-				image = this.up[this.frame];
-			break;
-			
-			case "down":
-				if(this.frame >= down.length) {this.frame = 0;} // every times change frame, if reaches max its reset
-				image = this.down[this.frame];
-			break;
-			
-			case "left":
-				if(this.frame >= left.length) {this.frame = 0;} // every times change frame, if reaches max its reset
-				image = this.left[this.frame];
-			break;
-			
-			case "right":
-				if(this.frame >= right.length) {this.frame = 0;} // every times change frame, if reaches max its reset
-				image = this.right[this.frame];
-			break;
-			
-			default: image = this.down[0];
-		}
-		
-		return image;
+		g.drawImage(this.getImageDirection(), screenX, screenY, panel.tileSize, panel.tileSize, null);
+		//g.fillRect(screenX+solidArea.x, screenY+solidArea.y, solidArea.width, solidArea.height);
 	}
 	
 	// METHOD THAT CHANGHE IMAGE FRAME

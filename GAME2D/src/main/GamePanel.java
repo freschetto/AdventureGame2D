@@ -15,7 +15,7 @@ import tile.TileManager;
 public class GamePanel extends JPanel implements Runnable {
 	
 	// SCREEN SETTINGS
-	public final int tileSize = 64; // 64x64 tile
+	public final int tileSize = 48; // 48x48 tile
 	private final int maxScreenCol = 16; // how many tiles can be displayed on screen horizontally
 	private final int maxScreenRow = 12; // how many tiles can be displayed on screen vertically
 	
@@ -27,10 +27,11 @@ public class GamePanel extends JPanel implements Runnable {
 	// WORLD SETTINGS
 	private final int maxWorldCol = 50; // how many tiles can be draw on the map horizontally
 	private final int maxWorldRow = 50; // how many tiles can be draw on the map vertically
+	private CollisionChecker collision = new CollisionChecker(this);
 	
 	// ELEMENTS
 	public Player player = new Player(this);
-	private TileManager background = new TileManager(this);;
+	public TileManager background = new TileManager(this);;
 	
 	// CONSTRUCTOR
 	public GamePanel() {
@@ -52,6 +53,8 @@ public class GamePanel extends JPanel implements Runnable {
 	public int getMaxWorldCol() {return maxWorldCol;}
 
 	public int getMaxWorldRow() {return maxWorldRow;}
+	
+	public CollisionChecker getCollisionChecker() {return collision;}
 
 	// METHOD START THREAD
 	public void startGameThread() {
@@ -107,4 +110,5 @@ public class GamePanel extends JPanel implements Runnable {
 		
 		g.dispose();
 	}
+
 }

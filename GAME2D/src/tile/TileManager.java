@@ -28,6 +28,11 @@ public class TileManager {
 		getTileImage(); // load image of all types of tile
 	}
 	
+	//GETTER
+	public int getMapTileType(int col, int row) {return mapTileType[col][row];}
+	
+	public Tile getTiles(int type) {return tiles[type];}
+	
 	// TILES IMAGES
 	private void getTileImage() {
 			
@@ -35,21 +40,28 @@ public class TileManager {
 			
 			// GRASS
 			tiles[0] = new Tile(ImageIO.read(getClass().getResourceAsStream("/images_tiles/grass.png")));
+			tiles[0].collision = false; // choose if this tile is physics
 			
 			// WALL
 			tiles[1] = new Tile(ImageIO.read(getClass().getResourceAsStream("/images_tiles/wall.png")));
+			tiles[1].collision = true; // choose if this tile is physics
 
 			// WATER
 			tiles[2] = new Tile(ImageIO.read(getClass().getResourceAsStream("/images_tiles/water.png")));
+			tiles[2].collision = true; // choose if this tile is physics
 				
 			// EARTH
 			tiles[3] = new Tile(ImageIO.read(getClass().getResourceAsStream("/images_tiles/earth.png")));
+			tiles[3].collision = false; // choose if this tile is physics
 			
 			// TREE
 			tiles[4] = new Tile(ImageIO.read(getClass().getResourceAsStream("/images_tiles/tree.png")));
+			tiles[4].collision = true;
+					; // choose if this tile is physics
 			
 			// SAND
 			tiles[5] = new Tile(ImageIO.read(getClass().getResourceAsStream("/images_tiles/sand.png")));
+			tiles[5].collision = false; // choose if this tile is physics
 				
 		} catch(IOException e) {e.printStackTrace();}
 	}
@@ -82,12 +94,12 @@ public class TileManager {
 	// RENDERING METHOD
 	public boolean rendering(int worldX, int worldY) {
 		
-		if(worldX + panel.tileSize > panel.player.worldX - panel.player.screenX &&
-		   worldX - panel.tileSize < panel.player.worldX + panel.player.screenX &&
-		   worldY + panel.tileSize > panel.player.worldY - panel.player.screenY &&
-		   worldY - panel.tileSize < panel.player.worldY + panel.player.screenY) {
+		if (worldX + panel.tileSize > panel.player.worldX - panel.player.screenX && worldX - panel.tileSize < panel.player.worldX + panel.player.screenX &&
+		    worldY + panel.tileSize > panel.player.worldY - panel.player.screenY && worldY - panel.tileSize < panel.player.worldY + panel.player.screenY) {
+			
 			return true;
 		}
+		
 		return false;
 	}
 }
