@@ -63,38 +63,38 @@ public class Player extends Entity {
 	
 	// UPDATE METHOD
 	public void update() {
-		
-		if(panel.getKeyH().action) {
 			
-			// UP
-			if(panel.getKeyH().upPressed) {
-				this.direction = "up";
-			}
-			
-			// DOWN
-			else if(panel.getKeyH().downPressed) {
-				this.direction = "down";
-			}
-			
-			// LEFT
-			else if(panel.getKeyH().leftPressed) {
-				this.direction = "left";
-			}
-			
-			// RIGHT
-			else if(panel.getKeyH().rightPressed) {
-				this.direction = "right";
-			}
-			
-			// COLLISION
-			panel.getCollisionChecker().checkTile(this);;
-			if(!this.collision) {
-				this.changePosition();
-			}
-			
-			// FRAME IMAGE
-			changeFrame();
+		// UP
+		if(panel.getKeyH().upPressed) {
+			this.direction = "up";
 		}
+			
+		// DOWN
+		else if(panel.getKeyH().downPressed) {
+			this.direction = "down";
+		}
+			
+		// LEFT
+		else if(panel.getKeyH().leftPressed) {
+			this.direction = "left";
+		}
+			
+		// RIGHT
+		else if(panel.getKeyH().rightPressed) {
+			this.direction = "right";
+		} 
+			
+		// NULL
+		else {this.direction = "null";}
+		
+		// COLLISION
+		panel.getCollisionChecker().checkTile(this);;
+		if(!this.collision) {
+			this.changePosition();
+		}
+			
+		// FRAME IMAGE
+		changeFrame();
 	}
 	
 	// DRAW METHOD
@@ -109,7 +109,7 @@ public class Player extends Entity {
 		
 		this.frameCounter++; // change frame every 10 times
 		
-		if(this.frameCounter > 16) {
+		if(this.frameCounter > 12) {
 			
 			this.frame++; // change the number of the frame
 				

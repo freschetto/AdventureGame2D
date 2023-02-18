@@ -19,31 +19,27 @@ public class KeyHandler implements KeyListener {
 	public void keyPressed(KeyEvent e) {
 		
 		int code = e.getKeyCode();
-		
-		if(code != KeyEvent.VK_UNDEFINED) {
 			
-			action = true; // if a key is pressed
-			
-			// key 'W'
-			if(code == KeyEvent.VK_W) { 
-				upPressed = true;
-			}
-			
-			// key 'S'
-			if(code == KeyEvent.VK_S) { 
-				downPressed = true;
-			}
-			
-			// key 'A'
-			if(code == KeyEvent.VK_A) { 
-				leftPressed = true;
-			}
-			
-			// key 'D'
-			if(code == KeyEvent.VK_D) { 
-				rightPressed = true;
-			}
+		// key 'W'
+		if(code == KeyEvent.VK_W) { 
+			upPressed = true;
 		}
+		
+		// key 'S'
+		if(code == KeyEvent.VK_S) { 
+			downPressed = true;
+		}
+		
+		// key 'A'
+		if(code == KeyEvent.VK_A) { 
+			leftPressed = true;
+		}
+		
+		// key 'D'
+		if(code == KeyEvent.VK_D) { 
+			rightPressed = true;
+		}
+		
 	}
 	
 	// WHEN A KEY RELEASED
@@ -51,30 +47,25 @@ public class KeyHandler implements KeyListener {
 	public void keyReleased(KeyEvent e) {
 		
 		int code = e.getKeyCode();
+			
+		// key 'W'
+		if(code == KeyEvent.VK_W) { 
+			upPressed = false;
+		}
 		
-		if(code != KeyEvent.VK_UNDEFINED) {
-
-			action = false; // if a key is not pressed
-			
-			// key 'W'
-			if(code == KeyEvent.VK_W) { 
-				upPressed = false;
-			}
-			
-			// key 'S'
-			if(code == KeyEvent.VK_S) { 
-				downPressed = false;
-			}
-			
-			// key 'A'
-			if(code == KeyEvent.VK_A) { 
-				leftPressed = false;
-			}
-			
-			// key 'D'
-			if(code == KeyEvent.VK_D) { 
-				rightPressed = false;
-			}
+		// key 'S'
+		if(code == KeyEvent.VK_S) { 
+			downPressed = false;
+		}
+		
+		// key 'A'
+		if(code == KeyEvent.VK_A) { 
+			leftPressed = false;
+		}
+		
+		// key 'D'
+		if(code == KeyEvent.VK_D) { 
+			rightPressed = false;
 		}
 	}
 
